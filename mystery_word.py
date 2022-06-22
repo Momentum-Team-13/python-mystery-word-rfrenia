@@ -1,3 +1,6 @@
+#import random
+
+
 def get_word_to_guess():
     open_file = open("test-word.txt")
     #print(open_file.read())
@@ -27,20 +30,18 @@ def play_game():
         string_list = new_strings(get_word)
         split_list = string_list
         #print(split_list[:-1])
-        new_list = [(item.replace(item, "_")) for item in split_list[:-1]]
+        new_list = [(character.replace(character, "_")) for character in split_list[:-1]]
         print(new_list)
         guess = []
         while len(guess) <= 7:
             guess.append(user_guess())
-            new_list = [(item.replace(item, "_")) if item not in guess else item for item in split_list[:-1]]
+            new_list = [(character.replace(character, "_")) if character not in guess else character for character in split_list[:-1]]
             print(f"You have {8 - len(guess)} guesses remaing \n {new_list} ")
         else:
-            print("You are out of guesses")
+            print(f"You are out of guesses, the word was: {get_word} ")
         play_again = input("Play agin? y/n ")
         if play_again == "n":
             break
-
-
 
 
 if __name__ == "__main__":

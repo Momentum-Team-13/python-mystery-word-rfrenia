@@ -23,21 +23,25 @@ def user_guess():
 
 def play_game():
     while True:
-        get_word = "getup"
+        get_word = get_word_to_guess()
         #print(get_word)
 
         def new_strings(get_word):
             return list(get_word)
-        string_list = new_strings(get_word)
-        split_list = string_list
-        new_list = [(character.replace(character, "_")) for character in split_list]
+        split_list = new_strings(get_word)
+        new_list = [ "_" for character in split_list]
         print(f"\n {new_list}\n")
-        guess = []
-        while len(guess) <= 7:
-            if guess != new_list:
-                guess.append(user_guess())
-                new_list = [(character.replace(character, "_")) if character not in guess else character for character in split_list]
-                print(f"\nYou have {8 - len(guess)} guesses remaining \n {new_list} \n")
+        guesses = []
+        number_of_guess = 8
+        while number_of_guess > 0:
+            if new_list != split_list:
+                guess = user_guess()
+                guesses.append(guess)
+                if guess not in split_list:
+                    number_of_guess -= 1
+                else:
+                    new_list = [ character if character in guesses else "_" for character in split_list]
+                print(f"\nYou have {number_of_guess} guesses remaining \n {new_list} \n")
             else:
                 print("You win!")
                 play_again = input("Play agin? y/n : ")
